@@ -43,9 +43,8 @@ def train_meta_model(epochs=100000, model_path='../checkpoints/meta/model.pt'):
         # update original model using the test_model
         model = copy.deepcopy(test_model)
 
-        alpha = 0.1  # Weight for blending test_model parameters
         for param_original, param_test in zip(model.parameters(), test_model.parameters()):
-            param_original.data = alpha * param_test.data + (1 - alpha) * param_original.data
+            param_original.data = param_test.data
 
     # Save the updated model
     torch.save(model.state_dict(), model_path)
